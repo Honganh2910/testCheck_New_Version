@@ -2,6 +2,7 @@ package com.company;
 
 import com.google.gson.Gson;
 import org.json.*;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -30,19 +31,13 @@ public class TestCaseLoginAPI {
             Gson g = new Gson();
             System.out.println(content.toString());
             JSONObject objectJson = new JSONObject(content.toString());
-            String code = objectJson.getString("code");
-            if(code.equals("1000")) {
-                String token = objectJson.getJSONObject("data").getString("token");
-                ResponseLogin t = g.fromJson(content.toString(), ResponseLogin.class);
-                t.token = token;
-                return t;
-            } else {
-                ResponseLogin m = g.fromJson(content.toString(), ResponseLogin.class);
-                return m;
-            }
+            ResponseLogin m = g.fromJson(content.toString(), ResponseLogin.class);
+            return m;
         } finally {
             con.disconnect();
         }
     }
 }
+
+
 
